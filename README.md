@@ -1,2 +1,2 @@
 # timew-fishcompletion
- Bash completion for Timewarrior
+ Fish completion for Timewarrior
