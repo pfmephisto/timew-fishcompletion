@@ -8,7 +8,7 @@ function __fish_timew_get_commands
 end
 
 function __fish_timew_get_tags
-    timew tags | tail -n+4 | cut -d'-' -f1
+    timew tags | tail -n+4 | cut -d'-' -f1 | awk '!/^[[:space:]]*$/' | awk '{$1=$1};1' | awk '{ print "\'"$0"\'"}'
 end
 
 function __fish_timew_get_ids
