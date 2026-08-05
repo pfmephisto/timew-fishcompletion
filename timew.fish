@@ -78,15 +78,23 @@ track\t'Add intervals to the database'
 untag\t'Remove tags from intervals'
 report\t'Run an extension report'
 resize\t'Set interval duration'
+fill\t'Adjust interval to fill surrounding gaps'
+import\t'Import time-tracking data from files'
 "
 
-# Base Commands 
-complete -c timew -n "not __fish_seen_subcommand_from $commands" \
+# The bare command names from the list above. `timew help` omits some commands
+# it nonetheless supports (resize, fill, import), so the scraped $commands alone
+# is not enough to tell whether a subcommand has been typed - without these, the
+# base command list keeps being offered after such a command.
+set -l static_commands (string split -n \n -- $commands_with_description | string split -f1 '\t')
+
+# Base Commands
+complete -c timew -n "not __fish_seen_subcommand_from $static_commands $commands" \
   -a "$commands_with_description" \
   -d "Timewarrior command"
 
 
-complete -c timew -n "not __fish_seen_subcommand_from $commands" \
+complete -c timew -n "not __fish_seen_subcommand_from $static_commands $commands" \
   -a "$reports" \
   -d "Report"
 
@@ -117,6 +125,10 @@ complete -c timew -n "__fish_seen_subcommand_from export" \
   -a "$tags"
 #[<interval>] [<tag> ...]
 #
+complete -c timew -n "__fish_seen_subcommand_from fill" \
+  -a "$ids"
+# <id>
+
 complete -c timew -n "__fish_seen_subcommand_from gaps" \
   -a "$tags"
 # [<interval>] [<tag> ...]
@@ -124,6 +136,10 @@ complete -c timew -n "__fish_seen_subcommand_from gaps" \
 complete -c timew -n "__fish_seen_subcommand_from get" \
   -a ""
 # <DOM> [<DOM> ...]
+
+# -F re-enables file completion, which `complete -c timew -f` above turns off.
+complete -c timew -n "__fish_seen_subcommand_from import" -F
+# [<file>...]
 
 complete -c timew -n "__fish_seen_subcommand_from join" \
   -a "$ids"
