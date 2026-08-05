@@ -76,7 +76,8 @@ tag\t'Add tags to intervals'
 tags\t'Display a list of tags'
 track\t'Add intervals to the database'
 untag\t'Remove tags from intervals'
-week\t'Display chart report'
+report\t'Run an extension report'
+resize\t'Set interval duration'
 "
 
 # Base Commands 
@@ -155,7 +156,7 @@ complete -c timew -n "__fish_seen_subcommand_from $reports" \
 
 complete -c timew -n "__fish_seen_subcommand_from retag" \
     -a "$ids $tags"
-# @<id> [@<id> ...] <tag> [<tag> ...]
+# [@<id> ...] <tag> [<tag> ...]
 
 complete -c timew -n "__fish_seen_subcommand_from shorten" \
   -a "$ids"
@@ -179,7 +180,7 @@ complete -c timew -n "__fish_seen_subcommand_from summary" \
 
 complete -c timew -n "__fish_seen_subcommand_from tag" \
   -a "$ids $tags"
-# @<id> [@<id> ...] <tag> [<tag> ...]
+# [@<id> ...] <tag> [<tag> ...]
 
 complete -c timew -n "__fish_seen_subcommand_from tags" \
   -a "$tags $intervals"
@@ -191,15 +192,16 @@ complete -c timew -n "__fish_seen_subcommand_from track" \
 
 complete -c timew -n "__fish_seen_subcommand_from untag" \
   -a "$ids $tags"
-# @<id> [@<id> ...] <tag> [<tag> ...]
+# [@<id> ...] <tag> [<tag> ...]
 
 complete -c timew -n "__fish_seen_subcommand_from week" \
   -a "$tags $intervals"
 # [<interval>] [<tag> ...]
 
+complete -c timew -n "__fish_seen_subcommand_from resize" \
+  -a "$ids"
+# @<id> [@<id> ...] <duration>
+
 complete -c timew -n "__fish_seen_subcommand_from help" \
   -a "$commands dates dom durations hints ranges" \
   -d "Show help"
-
- 
-
